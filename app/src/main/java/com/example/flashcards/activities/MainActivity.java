@@ -1,6 +1,7 @@
 package com.example.flashcards.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
@@ -15,6 +16,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Toolbar myToolbar = findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+        myToolbar.setBackgroundColor(getResources().getColor(R.color.primary));
 
         ViewPager viewPager = findViewById(R.id.mainViewPager);
         viewPager.setAdapter(new HomeFragmentPagerAdapter(getSupportFragmentManager()));

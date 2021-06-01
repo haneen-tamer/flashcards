@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,13 +41,14 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
         return folders.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView title;
         private TextView deckCount;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.folderTitleCardTV);
             deckCount = itemView.findViewById(R.id.folderDeckCountCardTV);
+            itemView.setOnClickListener(this::onClick);
         }
 
         public TextView getTitle() {
@@ -55,6 +57,16 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
 
         public TextView getDeckCount() {
             return deckCount;
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition(); // gets item position
+            if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
+                Folder f = folders.get(position);
+                // We can access the data within the views
+                Toast.makeText(v.getContext(), "Folder ID: "+f.getId(), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

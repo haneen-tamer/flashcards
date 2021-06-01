@@ -3,14 +3,23 @@ package com.example.flashcards.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.flashcards.R;
+import com.example.flashcards.adapeters.DeckAdapter;
+import com.example.flashcards.adapeters.FolderAdapter;
+import com.example.flashcards.models.Deck;
+import com.example.flashcards.models.Folder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +36,10 @@ public class DecksFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private RecyclerView rv;
+    private ArrayList<Deck> decks;
+    private DeckAdapter deckAdapter;
 
     public DecksFragment() {
         // Required empty public constructor
@@ -68,10 +81,16 @@ public class DecksFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null).show();
+                Toast.makeText(view.getContext(), "Here's a Snackbar", Toast.LENGTH_SHORT).show();
             }
         });
+
+        rv = root.findViewById(R.id.deckRecyclerView);
+        decks = Deck.getDecks();
+        deckAdapter = new DeckAdapter(decks);
+        rv.setAdapter(deckAdapter);
+        rv.setLayoutManager(new LinearLayoutManager(getContext()));
+
         return root;
     }
 }
