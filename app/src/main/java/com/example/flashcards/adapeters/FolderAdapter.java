@@ -1,8 +1,11 @@
 package com.example.flashcards.adapeters;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +37,31 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
         Folder f = folders.get(position);
         holder.getTitle().setText(f.getTitle());
         holder.getDeckCount().setText(""+f.getDecksCount()+" decks");
+        holder.getOptions().setOnClickListener(v -> {
+            PopupMenu popup = new PopupMenu(v.getContext(), holder.getOptions());
+            //inflating menu from xml resource
+            popup.inflate(R.menu.folder_menu);
+            //adding click listener
+            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.folder_menu_rename:
+                            //handle menu1 click
+                            Toast.makeText(v.getContext(), "rename", Toast.LENGTH_SHORT).show();
+                            return true;
+                        case R.id.folder_menu_del:
+                            //handle menu2 click
+                            Toast.makeText(v.getContext(), "delete", Toast.LENGTH_SHORT).show();
+                            return true;
+                        default:
+                            return false;
+                    }
+                }
+            });
+            //displaying the popup
+            popup.show();
+        });
     }
 
     @Override
@@ -44,10 +72,17 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView title;
         private TextView deckCount;
+        private ImageButton options;
+
+        public ImageButton getOptions() {
+            return options;
+        }
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.folderTitleCardTV);
             deckCount = itemView.findViewById(R.id.folderDeckCountCardTV);
+            options = itemView.findViewById(R.id.folderOptionMenuBtn);
             itemView.setOnClickListener(this::onClick);
         }
 

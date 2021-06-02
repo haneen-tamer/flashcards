@@ -2,14 +2,19 @@ package com.example.flashcards.models;
 
 import androidx.annotation.Nullable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Deck {
+public class Deck implements Serializable {
     private int id;
     private String title;
     private String description;
     private int folder_id;
     private ArrayList<Card> cards;
+
+    public ArrayList<Card> getCards() {
+        return cards;
+    }
 
     public static ArrayList<Deck> getDecks(){
         ArrayList<Deck> decks = new ArrayList<>();

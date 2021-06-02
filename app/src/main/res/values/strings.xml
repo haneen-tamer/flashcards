@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">Flashcards</string>
-    <string name="deck_menu_item1">Edit</string>
-    <string name="deck_menu_item2">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="add_to_folder">Add to Folder</string>
+    <string name="rename">Rename</string>
+    <string name="description">Description</string>
+    <string name="learn">Learn</string>
+    <string name="quiz">Quiz</string>
+    <string name="terms">Terms</string>
 </resources>

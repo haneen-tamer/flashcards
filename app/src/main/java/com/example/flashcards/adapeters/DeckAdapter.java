@@ -1,11 +1,13 @@
 package com.example.flashcards.adapeters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,9 +22,23 @@ import java.util.ArrayList;
 
 public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
     private ArrayList<Deck> decks;
+    private int colorLast;
+
+    // Define listener member variable
+    private OnItemClickListener listener;
+    // Define the listener interface
+    public interface OnItemClickListener {
+        void onItemClick(View itemView, int position);
+    }
+    // Define the method that allows the parent activity or fragment to define the listener
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
 
     public DeckAdapter(ArrayList<Deck> decks) {
         this.decks = decks;
+        colorLast = R.color.yellow;
     }
 
     @NonNull
@@ -39,6 +55,12 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
         holder.getTitle().setText(d.getTitle());
         holder.getCardCount().setText(""+d.getCardsCount()+" cards");
         holder.getDescription().setText(d.getDescription());
+
+//        holder.getColorBar().setBackgroundColor(holder.itemView.getResources().getColor(colorLast));
+//        if(colorLast==R.color.yellow)
+//            colorLast=R.color.primary_dark;
+//        else
+//            colorLast = R.color.yellow;
         holder.getOptions().setOnClickListener(v -> {
             PopupMenu popup = new PopupMenu(v.getContext(), holder.getOptions());
             //inflating menu from xml resource
@@ -76,6 +98,11 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
         private TextView cardCount;
         private TextView description;
         private ImageButton options;
+        private LinearLayout colorBar;
+
+        public LinearLayout getColorBar() {
+            return colorBar;
+        }
 
         public TextView getDescription() {
             return description;
@@ -91,6 +118,7 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
             cardCount = itemView.findViewById(R.id.deckCardCountCardTV);
             description = itemView.findViewById(R.id.deckDescriptionCardTV);
             options = itemView.findViewById(R.id.deckItemOptionsMenu);
+            colorBar = itemView.findViewById(R.id.colorLinearLayout);
             itemView.setOnClickListener(this::onClick);
         }
 
@@ -105,10 +133,8 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition(); // gets item position
-            if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
-                Deck d = decks.get(position);
-                // We can access the data within the views
-                Toast.makeText(v.getContext(), "Deck ID: "+d.getId(), Toast.LENGTH_SHORT).show();
+            if (position != RecyclerView.NO_POSITION) {
+                listener.onItemClick(itemView,position);
             }
         }
     }

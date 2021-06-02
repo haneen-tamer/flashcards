@@ -1,17 +1,21 @@
 package com.example.flashcards.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.flashcards.R;
+import com.example.flashcards.activities.MainActivity;
+import com.example.flashcards.activities.ViewDeckActivity;
 import com.example.flashcards.adapeters.DeckAdapter;
 import com.example.flashcards.adapeters.FolderAdapter;
 import com.example.flashcards.models.Deck;
@@ -88,6 +92,17 @@ public class DecksFragment extends Fragment {
         rv = root.findViewById(R.id.deckRecyclerView);
         decks = Deck.getDecks();
         deckAdapter = new DeckAdapter(decks);
+        deckAdapter.setOnItemClickListener(new DeckAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View itemView, int position) {
+                if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
+                    Deck d = decks.get(position);
+                    Intent i = new Intent(getActivity(), ViewDeckActivity.class);
+                    i.putExtra("deck", d);
+                    startActivity(i);
+                }
+            }
+        });
         rv.setAdapter(deckAdapter);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
 

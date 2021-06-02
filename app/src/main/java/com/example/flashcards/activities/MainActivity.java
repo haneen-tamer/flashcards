@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-        myToolbar.setBackgroundColor(getResources().getColor(R.color.primary));
 
         ViewPager viewPager = findViewById(R.id.mainViewPager);
         viewPager.setAdapter(new HomeFragmentPagerAdapter(getSupportFragmentManager()));

@@ -1,11 +1,16 @@
 package com.example.flashcards.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Folder {
+public class Folder implements Serializable {
     private int id;
     private String title;
     private ArrayList<Deck> decks;
+
+    public ArrayList<Deck> getDecks() {
+        return decks;
+    }
 
     public static ArrayList<Folder> getFolders(){
         ArrayList<Folder> folders = new ArrayList<>();
