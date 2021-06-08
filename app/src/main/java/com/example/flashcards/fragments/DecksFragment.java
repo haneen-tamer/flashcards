@@ -16,6 +16,8 @@ import android.widget.Toast;
 import com.example.flashcards.R;
 import com.example.flashcards.activities.MainActivity;
 import com.example.flashcards.activities.ViewDeckActivity;
+import com.example.flashcards.activities.CreateDActivity;
+import com.example.flashcards.activities.EditDActivity;
 import com.example.flashcards.adapeters.DeckAdapter;
 import com.example.flashcards.adapeters.FolderAdapter;
 import com.example.flashcards.models.Deck;
@@ -85,7 +87,9 @@ public class DecksFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Here's a Snackbar", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(view.getContext(), "Here's a Snackbar", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(getActivity(), EditDActivity.class);
+                startActivity(i);
             }
         });
 

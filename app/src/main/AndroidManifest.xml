@@ -17,6 +17,9 @@
         <activity
             android:name=".activities.ViewDeckActivity"
             android:parentActivityName=".activities.MainActivity" />
+        <activity android:name=".activities.EditDActivity"></activity>
+        <activity android:name=".activities.CreateDActivity" />
+
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
