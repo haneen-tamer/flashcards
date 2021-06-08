@@ -34,7 +34,7 @@
             app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
         <TextView
-            android:id="@+id/deckDescriptionCardTV"
+            android:id="@+id/Definition"
             android:layout_width="0dp"
             android:layout_height="72dp"
             android:layout_marginStart="24dp"

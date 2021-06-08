@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Flashcards">
-        <activity android:name=".activities.ViewDeckActivity"></activity>
+        <activity android:name=".activities.EditDActivity"></activity>
+        <activity android:name=".activities.CreateDActivity" />
+
+        <activity android:name=".activities.ViewDeckActivity" />
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

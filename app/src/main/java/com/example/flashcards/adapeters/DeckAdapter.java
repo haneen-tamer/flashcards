@@ -1,6 +1,5 @@
 package com.example.flashcards.adapeters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -89,7 +88,7 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
             super(itemView);
             title = itemView.findViewById(R.id.deckTitleCardTV);
             cardCount = itemView.findViewById(R.id.deckCardCountCardTV);
-            description = itemView.findViewById(R.id.deckDescriptionCardTV);
+            description = itemView.findViewById(R.id.Definition);
             options = itemView.findViewById(R.id.deckItemOptionsMenu);
             itemView.setOnClickListener(this::onClick);
         }
