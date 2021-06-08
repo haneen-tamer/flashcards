@@ -9,8 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Flashcards">
-        <activity android:name=".activities.LearnActivity"
-            android:parentActivityName=".activities.MainActivity"></activity>
+        <activity android:name=".activities.QuizActivity"
+            android:parentActivityName=".activities.MainActivity" ></activity>
+        <activity
+            android:name=".activities.LearnActivity"
+            android:parentActivityName=".activities.MainActivity" />
         <activity
             android:name=".activities.ViewDeckActivity"
             android:parentActivityName=".activities.MainActivity" />

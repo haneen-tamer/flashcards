@@ -86,6 +86,12 @@ public class ViewDeckActivity extends AppCompatActivity {
             startActivityForResult(i, 1);
         });
 
+        findViewById(R.id.quizBtn).setOnClickListener(v -> {
+            Intent i = new Intent(ViewDeckActivity.this, QuizActivity.class);
+            i.putExtra("deck", d);
+            startActivityForResult(i, 1);
+        });
+
 
 
     }
