@@ -2,18 +2,24 @@ package com.example.flashcards.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.flashcards.R;
+import com.example.flashcards.fragments.CustomDialog;
 import com.example.flashcards.models.Card;
 import com.example.flashcards.models.Deck;
 import com.example.flashcards.utils.LearnController;
@@ -37,7 +43,8 @@ public class LearnActivity extends AppCompatActivity {
     TextView clicked;
 
     int correctCount;
-
+    AlertDialog.Builder dialogBuilder;
+     Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,14 +168,22 @@ public class LearnActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.next_question:
                 if(cards.isEmpty()){
-                    Toast.makeText(getApplicationContext(), "Correct: "+correctCount, Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getApplicationContext(), "Correct: "+correctCount, Toast.LENGTH_SHORT).show();
+
+                    CustomDialog dialog = new CustomDialog();
+                    dialog.count= correctCount;
+                    dialog.show(getSupportFragmentManager(),"CustomDialog");
+
+
                 }else{
                     currentCard = pickCard();
                     currentOptions = learnController.getOptions(currentCard);
                     displayOptions();
                 }
+              return  true;
             default:
                 return super.onOptionsItemSelected(item);
+
         }
 
     }
