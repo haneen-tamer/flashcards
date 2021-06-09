@@ -10,6 +10,11 @@ public class Deck implements Serializable {
     private String title;
     private String description;
     private int folder_id;
+
+    public void setCards(ArrayList<Card> cards) {
+        this.cards = cards;
+    }
+
     private ArrayList<Card> cards;
 
     public ArrayList<Card> getCards() {
@@ -32,6 +37,10 @@ public class Deck implements Serializable {
         return decks;
     }
 
+    public Deck() {
+        cards = new ArrayList<Card>();
+    }
+
     public Deck(int id, String title, String description) {
         this.id = id;
         this.title = title;
@@ -52,6 +61,12 @@ public class Deck implements Serializable {
         this.description = description;
         this.folder_id = folder_id;
         this.cards = cards;
+    }
+    public Deck(int id, String title, String description, int folder_id) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.folder_id = folder_id;
     }
 
     public void addCard(Card c){

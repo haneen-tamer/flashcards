@@ -1,5 +1,8 @@
 package com.example.flashcards.utils;
 
+import android.database.sqlite.SQLiteDatabase;
+
+import com.example.flashcards.DataBase.DBHelper;
 import com.example.flashcards.models.Card;
 
 import java.util.ArrayList;
@@ -17,16 +20,24 @@ public class QuizController {
     private int correctCount;
     private Queue<Card> shuffledCards;
     Card currentCard;
+    DBHelper helper;
 
-    public QuizController(ArrayList<Card> cards) {
+    public QuizController(ArrayList<Card> cards, DBHelper helper) {
         this.cards = cards;
+        this.helper=helper;
         correctCount=0;
         shuffledCards = new LinkedList<>();
         shuffleCards();
     }
 
     public void checkAnswer(String answer){
-        if(currentCard.getTerm().equals(answer)) correctCount++;
+        if(currentCard.getTerm().equals(answer)) {
+            correctCount++;
+            currentCard.incLearnCount();
+        }else{
+            currentCard.incMistakeCount();
+        }
+        helper.updateCard(currentCard);
     }
 
     private void shuffleCards(){

@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -18,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.flashcards.DataBase.DBHelper;
 import com.example.flashcards.R;
 import com.example.flashcards.models.Card;
 import com.example.flashcards.models.Deck;
@@ -26,32 +28,63 @@ import com.example.flashcards.models.Deck;
 import java.util.ArrayList;
 
 
-public class ListCardAdapter extends ArrayAdapter<View> {
-       private static final String TAG="CardAdapter";
-       private Context myContext;
-        private ArrayList<View> cards;
-int mResource;
-        public ListCardAdapter(Context context, int resource, ArrayList<View> objects)
-        {
-            super(context, resource, objects);
-            myContext= context;
-        }
+public class ListCardAdapter extends RecyclerView.Adapter<ListCardAdapter.ViewHolder> {
 
-       @NonNull
+    private ArrayList<Card> cards;
+    DBHelper helper;
+
+    public ListCardAdapter(ArrayList<Card> cards, DBHelper helper) {
+        this.helper=helper;
+        this.cards = cards;
+    }
+
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent)
-       {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.cardviewlayout, parent, false);
+        return new ListCardAdapter.ViewHolder(v);
+    }
 
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Card c = cards.get(position);
+        holder.term.setText(c.getTerm());
+        holder.definition.setText(c.getDefinition());
+        holder.term.setOnFocusChangeListener((v, hasFocus) -> {
+            if(!hasFocus){
+                c.setTerm(holder.term.getText().toString());
+            }
+        });
+        holder.definition.setOnFocusChangeListener((v, hasFocus) -> {
+            if(!hasFocus){
+                c.setDefinition(holder.definition.getText().toString());
+            }
+        });
+        holder.del.setOnClickListener(v -> {
+            if (position != RecyclerView.NO_POSITION){
+                helper.RemoveCard(c);
+                cards.remove(position);
+                notifyItemRemoved(position);
+            }
 
+        });
+    }
 
-           LayoutInflater inflater= LayoutInflater.from(myContext);
-            convertView = inflater.inflate(mResource,parent,false);
-           EditText Term = (EditText) convertView.findViewById(R.id.Termtext1);
-           EditText Definition = (EditText) convertView.findViewById(R.id.Definitiontext1);
+    @Override
+    public int getItemCount() {
+        return cards.size();
+    }
 
-           CardView cardView= (CardView)convertView.findViewById(R.id.cardView1);
-
-
-           return convertView;
-       }
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        EditText term;
+        EditText definition;
+        ImageButton del;
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            term = itemView.findViewById(R.id.Termtext1);
+            definition = itemView.findViewById(R.id.Definitiontext1);
+            del = itemView.findViewById(R.id.delCardBtn);
+        }
+    }
 }

@@ -11,13 +11,12 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.flashcards.DataBase.DBHelper;
 import com.example.flashcards.R;
 import com.example.flashcards.fragments.CustomDialog;
 import com.example.flashcards.models.Card;
@@ -28,7 +27,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Set;
 
 public class LearnActivity extends AppCompatActivity {
     Deck d;
@@ -39,6 +37,7 @@ public class LearnActivity extends AppCompatActivity {
     TextView[] optionsTV;
     FrameLayout[] optionsFL;
     TextView term;
+    DBHelper helper;
 
     TextView clicked;
 
@@ -54,15 +53,12 @@ public class LearnActivity extends AppCompatActivity {
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 //        myToolbar.setNavigationIcon(R.drawable.arrow_left);
-
-        // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
-
-        // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setTitle(R.string.learn);
 
         correctCount=0;
+        helper = new DBHelper(getApplicationContext());
 
         optionsTV = new TextView[4];
         optionsFL = new FrameLayout[4];
@@ -133,10 +129,12 @@ public class LearnActivity extends AppCompatActivity {
     private void handleClick(){
         if(learnController.isCorrect(currentCard.getTerm(), clicked.getText().toString())){
             correctCount++;
-            //TODO increase learn count db
+
+            currentCard.incLearnCount();
+            helper.updateCard(currentCard);
         }else{
-            //color red
-            //TODO increase mistake count db
+            currentCard.incMistakeCount();
+            helper.updateCard(currentCard);
             clicked.setBackgroundColor(getResources().getColor(R.color.red));
             clicked.setTextColor(getResources().getColor(R.color.white));
 
@@ -148,25 +146,18 @@ public class LearnActivity extends AppCompatActivity {
         optionsTV[correct].setTextColor(getResources().getColor(R.color.white));
         optionsFL[correct].setBackgroundColor(getResources().getColor(R.color.green));
 
-//        if(cards.isEmpty()){
-//            Toast.makeText(getApplicationContext(), "Correct: "+correctCount, Toast.LENGTH_SHORT).show();
-//        }else{
-//            currentCard = pickCard();
-//            currentOptions = learnController.getOptions(currentCard);
-//            displayOptions();
-//        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.learn_toolbar, menu);
+        getMenuInflater().inflate(R.menu.done_toolbar, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.next_question:
+            case R.id.done_action:
                 if(cards.isEmpty()){
                    // Toast.makeText(getApplicationContext(), "Correct: "+correctCount, Toast.LENGTH_SHORT).show();
 
@@ -180,7 +171,13 @@ public class LearnActivity extends AppCompatActivity {
                     currentOptions = learnController.getOptions(currentCard);
                     displayOptions();
                 }
-              return  true;
+
+                return true;
+            case android.R.id.home:
+                //TODO change to an x shape
+                onBackPressed();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
 
