@@ -99,20 +99,12 @@ public class DecksFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        int size=decks.size();
+        int size = decks.size();
         decks.clear();
         deckAdapter.notifyItemRangeRemoved(0, size);
-        for(Deck d:helper.getAllDecks()) {
+        for (Deck d : helper.getAllDecks()) {
             decks.add(d);
-            deckAdapter.notifyItemInserted(decks.size()-1);
+            deckAdapter.notifyItemInserted(decks.size() - 1);
         }
-        Log.i("wtf2", "idk what's happeneing");
-    }
-
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-
-        Log.i("wtf", "idk what's happeneing");
     }
 }

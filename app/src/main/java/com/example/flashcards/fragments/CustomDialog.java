@@ -25,8 +25,6 @@ public class CustomDialog extends DialogFragment {
     Button back;
     Button tryagain;
     TextView learnres;
-    ProgressBar progb;
-    Toolbar toolbar;
 
     public int count;
 

@@ -192,9 +192,22 @@ public class DBHelper extends SQLiteOpenHelper {
                 dCursor.getString(2),
                 dCursor.getInt(3),
                 getCardsByDeckID(id, Database));
-        dCursor.moveToNext();
         Database.close();
         return d;
+    }
+
+    public Folder getFolderByID(int id){
+        Database = getReadableDatabase();
+
+        String [] args = {""+id};
+        Cursor dCursor = Database.rawQuery("select * from Folder where id == ?", args);
+        if(dCursor!=null)
+            dCursor.moveToFirst();
+        Folder f = new Folder(id,
+                dCursor.getString(1),
+                getDecksByFolderID(id, Database));
+        Database.close();
+        return f;
     }
 
     public ArrayList<Deck> getAllDecks(){

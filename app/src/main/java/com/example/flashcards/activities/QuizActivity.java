@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.flashcards.DataBase.DBHelper;
 import com.example.flashcards.R;
+import com.example.flashcards.fragments.CustomDialog;
 import com.example.flashcards.models.Deck;
 import com.example.flashcards.utils.QuizController;
 
@@ -65,7 +66,7 @@ public class QuizActivity extends AppCompatActivity {
                 if(actionId== EditorInfo.IME_ACTION_DONE){
                     quizController.checkAnswer(v.getText().toString());
                     if(quizController.isDone())
-                        Toast.makeText(this, "Correct: "+quizController.getCorrectCount(), Toast.LENGTH_SHORT).show();
+                        displayResult();
                     else{
                         v.setText("");
                         v.clearFocus();
@@ -77,5 +78,11 @@ public class QuizActivity extends AppCompatActivity {
                 return false;
             });
         }
+    }
+
+    public void displayResult(){
+        CustomDialog dialog = new CustomDialog();
+        dialog.count= quizController.getCorrectCount();
+        dialog.show(getSupportFragmentManager(), "quiz");
     }
 }

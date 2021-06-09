@@ -18,6 +18,7 @@ import com.example.flashcards.DataBase.DBHelper;
 import com.example.flashcards.R;
 import com.example.flashcards.adapeters.CardAdapter;
 import com.example.flashcards.adapeters.ListCardAdapter;
+import com.example.flashcards.fragments.AddToFolderDialog;
 import com.example.flashcards.models.Deck;
 
 public class ViewDeckActivity extends AppCompatActivity {
@@ -40,7 +41,9 @@ public class ViewDeckActivity extends AppCompatActivity {
                 startActivity(i);
                 return true;
             case R.id.view_deck_addtofolder:
-                Toast.makeText(getApplicationContext(), R.string.add_to_folder, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), R.string.add_to_folder, Toast.LENGTH_SHORT).show();
+                AddToFolderDialog dialog = new AddToFolderDialog(d);
+                dialog.show(getSupportFragmentManager(), "dialog");
                 return true;
             case android.R.id.home:
                 onBackPressed();

@@ -12,16 +12,40 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.flashcards.DataBase.DBHelper;
 import com.example.flashcards.R;
+import com.example.flashcards.fragments.RenameFolderDialog;
 import com.example.flashcards.models.Folder;
 
 import java.util.ArrayList;
 
 public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder> {
     private ArrayList<Folder> folders;
+    DBHelper helper;
 
-    public FolderAdapter(ArrayList<Folder> folders) {
+    public void setRenameAction(OnMenuItemCLickListener renameAction) {
+        this.renameAction = renameAction;
+    }
+
+    private FolderAdapter.OnMenuItemCLickListener renameAction;
+    public  interface OnMenuItemCLickListener{
+        void onItemClick(View itemView, int position);
+    }
+
+    // Define listener member variable
+    private FolderAdapter.OnItemClickListener listener;
+    // Define the listener interface
+    public interface OnItemClickListener {
+        void onItemClick(View itemView, int position);
+    }
+    // Define the method that allows the parent activity or fragment to define the listener
+    public void setOnItemClickListener(FolderAdapter.OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    public FolderAdapter(ArrayList<Folder> folders, DBHelper helper) {
         this.folders = folders;
+        this.helper = helper;
     }
 
     @NonNull
@@ -47,12 +71,12 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
                 public boolean onMenuItemClick(MenuItem item) {
                     switch (item.getItemId()) {
                         case R.id.folder_menu_rename:
-                            //handle menu1 click
-                            Toast.makeText(v.getContext(), "rename", Toast.LENGTH_SHORT).show();
+                            renameAction.onItemClick(v, position);
                             return true;
                         case R.id.folder_menu_del:
-                            //handle menu2 click
-                            Toast.makeText(v.getContext(), "delete", Toast.LENGTH_SHORT).show();
+                            helper.RemoveFolder(f);
+                            folders.remove(position);
+                            notifyItemRemoved(position);
                             return true;
                         default:
                             return false;
@@ -97,10 +121,8 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition(); // gets item position
-            if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
-                Folder f = folders.get(position);
-                // We can access the data within the views
-                Toast.makeText(v.getContext(), "Folder ID: "+f.getId(), Toast.LENGTH_SHORT).show();
+            if (position != RecyclerView.NO_POSITION) {
+                listener.onItemClick(itemView,position);
             }
         }
     }

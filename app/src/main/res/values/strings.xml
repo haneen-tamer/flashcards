@@ -10,4 +10,7 @@
     <string name="terms">Terms</string>
     <string name="term">Term</string>
     <string name="title">Title</string>
+    <string name="createFolderPopup">Create Folder</string>
+    <string name="cancel">cancel</string>
+    <string name="ok">ok</string>
 </resources>

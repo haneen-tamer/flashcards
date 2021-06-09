@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.flashcards.DataBase.DBHelper;
 import com.example.flashcards.R;
 import com.example.flashcards.activities.EditDActivity;
+import com.example.flashcards.fragments.AddToFolderDialog;
 import com.example.flashcards.models.Deck;
 
 import java.util.ArrayList;

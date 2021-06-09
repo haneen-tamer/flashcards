@@ -6,21 +6,23 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:largeHeap="true"
         android:theme="@style/Theme.Flashcards">
-        <activity android:name=".activities.QuizActivity"
-            android:parentActivityName=".activities.MainActivity" ></activity>
+        <activity android:name=".activities.ViewFolderActivity"
+            android:parentActivityName=".activities.MainActivity"></activity>
+        <activity
+            android:name=".activities.QuizActivity"
+            android:parentActivityName=".activities.MainActivity" />
         <activity
             android:name=".activities.LearnActivity"
             android:parentActivityName=".activities.MainActivity" />
         <activity
             android:name=".activities.ViewDeckActivity"
             android:parentActivityName=".activities.MainActivity" />
-        <activity android:name=".activities.EditDActivity"></activity>
+        <activity android:name=".activities.EditDActivity" />
         <activity android:name=".activities.CreateDActivity" />
-
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
