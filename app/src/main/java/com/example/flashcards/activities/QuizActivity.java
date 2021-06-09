@@ -44,7 +44,7 @@ public class QuizActivity extends AppCompatActivity {
 
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-//        myToolbar.setNavigationIcon(R.drawable.arrow_left);
+
 
         // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();

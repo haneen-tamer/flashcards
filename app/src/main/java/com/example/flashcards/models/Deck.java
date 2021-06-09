@@ -39,6 +39,8 @@ public class Deck implements Serializable {
 
     public Deck() {
         cards = new ArrayList<Card>();
+        title="";
+        description="";
     }
 
     public Deck(int id, String title, String description) {

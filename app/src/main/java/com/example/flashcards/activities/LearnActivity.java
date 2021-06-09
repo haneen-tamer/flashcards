@@ -52,7 +52,6 @@ public class LearnActivity extends AppCompatActivity {
 
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-//        myToolbar.setNavigationIcon(R.drawable.arrow_left);
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setTitle(R.string.learn);
@@ -174,7 +173,6 @@ public class LearnActivity extends AppCompatActivity {
 
                 return true;
             case android.R.id.home:
-                //TODO change to an x shape
                 onBackPressed();
                 return true;
 

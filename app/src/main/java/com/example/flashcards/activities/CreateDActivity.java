@@ -107,7 +107,7 @@ public class CreateDActivity extends AppCompatActivity {
                 else{
                     Toast.makeText(getApplicationContext(), "Fill in the fields first!", Toast.LENGTH_SHORT).show();
                 }
-
+                return true;
             case android.R.id.home:
                 onBackPressed();
                 return true;

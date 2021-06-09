@@ -45,9 +45,9 @@ public class ViewDeckActivity extends AppCompatActivity {
                 AddToFolderDialog dialog = new AddToFolderDialog(d);
                 dialog.show(getSupportFragmentManager(), "dialog");
                 return true;
-            case android.R.id.home:
-                onBackPressed();
-                return true;
+//            case android.R.id.home:
+//                onBackPressed();
+//                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
