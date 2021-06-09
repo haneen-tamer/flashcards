@@ -6,6 +6,11 @@ import java.util.ArrayList;
 public class Folder implements Serializable {
     private int id;
     private String title;
+
+    public void setDecks(ArrayList<Deck> decks) {
+        this.decks = decks;
+    }
+
     private ArrayList<Deck> decks;
 
     public ArrayList<Deck> getDecks() {

@@ -44,6 +44,14 @@ public class Card implements Serializable {
         this.learn_count = learn_count;
     }
 
+    public Card(String term, String definition, int mistake_count, int learn_count) {
+        this.term = term;
+        this.definition = definition;
+        this.deck_id = deck_id;
+        this.mistake_count = mistake_count;
+        this.learn_count = learn_count;
+    }
+
     public int getId() {
         return id;
     }
@@ -91,4 +99,7 @@ public class Card implements Serializable {
     public void setLearn_count(int learn_count) {
         this.learn_count = learn_count;
     }
+
+    public void incLearnCount(){learn_count++;}
+    public void incMistakeCount(){mistake_count++;}
 }

@@ -1,6 +1,8 @@
 package com.example.flashcards.adapeters;
 
 
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,7 +16,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.flashcards.DataBase.DBHelper;
 import com.example.flashcards.R;
+import com.example.flashcards.activities.EditDActivity;
 import com.example.flashcards.models.Deck;
 
 import java.util.ArrayList;
@@ -22,6 +26,7 @@ import java.util.ArrayList;
 public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
     private ArrayList<Deck> decks;
     private int colorLast;
+    private DBHelper helper;
 
     // Define listener member variable
     private OnItemClickListener listener;
@@ -35,9 +40,10 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
     }
 
 
-    public DeckAdapter(ArrayList<Deck> decks) {
+    public DeckAdapter(ArrayList<Deck> decks, DBHelper helper) {
         this.decks = decks;
         colorLast = R.color.yellow;
+        this.helper = helper;
     }
 
     @NonNull
@@ -70,12 +76,14 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
                 public boolean onMenuItemClick(MenuItem item) {
                     switch (item.getItemId()) {
                         case R.id.deck_menu_edit:
-                            //handle menu1 click
-                            Toast.makeText(v.getContext(), "edit", Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(v.getContext(), EditDActivity.class);
+                            i.putExtra("deck",d);
+                            v.getContext().startActivity(i);
                             return true;
                         case R.id.deck_menu_del:
-                            //handle menu2 click
-                            Toast.makeText(v.getContext(), "delete", Toast.LENGTH_SHORT).show();
+                            helper.RemoveDeck(d);
+                            decks.remove(d);
+                            notifyItemRemoved(position);
                             return true;
                         default:
                             return false;
