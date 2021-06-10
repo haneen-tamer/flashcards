@@ -96,14 +96,14 @@ public class DBHelper extends SQLiteOpenHelper {
     public void RemoveDeck(Deck d)
     {
         Database= getWritableDatabase();
-        Database.delete("Card", "id='"+ d.getId() +"'", null);
+        Database.delete("Card", "deck_id='"+ d.getId() +"'", null);
         Database.delete("Deck", "id='"+ d.getId() +"'", null);
         Database.close();
     }
     public void RemoveFolder(Folder f)
     {
         Database= getWritableDatabase();
-        Database.delete("Card", "id='"+ f.getId() +"'", null);
+        Database.delete("Folder", "id='"+ f.getId() +"'", null);
         Database.close();
     }
 

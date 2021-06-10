@@ -63,12 +63,14 @@ public class CreateDActivity extends AppCompatActivity {
         rv.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
         Card first = new Card("","",0,0);
+        first.setDeck_id(deck.getId());
         deck.addCard(first);
         adapter.notifyItemInserted(0);
         rv.scrollToPosition(0);
 
         addBtn.setOnClickListener(v -> {
             Card c = new Card("","",0,0);
+            c.setDeck_id(deck.getId());
             deck.addCard(c);
             adapter.notifyItemInserted(deck.getCardsCount()-1);
             rv.scrollToPosition(deck.getCardsCount()-1);

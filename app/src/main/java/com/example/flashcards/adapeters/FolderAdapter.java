@@ -71,12 +71,16 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
                 public boolean onMenuItemClick(MenuItem item) {
                     switch (item.getItemId()) {
                         case R.id.folder_menu_rename:
-                            renameAction.onItemClick(v, position);
+                            if (position != RecyclerView.NO_POSITION) {
+                                renameAction.onItemClick(v, position);
+                            }
                             return true;
                         case R.id.folder_menu_del:
-                            helper.RemoveFolder(f);
-                            folders.remove(position);
-                            notifyItemRemoved(position);
+                            if (position != RecyclerView.NO_POSITION) {
+                                helper.RemoveFolder(f);
+                                folders.remove(position);
+                                notifyItemRemoved(position);
+                            }
                             return true;
                         default:
                             return false;

@@ -77,14 +77,18 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
                 public boolean onMenuItemClick(MenuItem item) {
                     switch (item.getItemId()) {
                         case R.id.deck_menu_edit:
+                            if (position != RecyclerView.NO_POSITION){
                             Intent i = new Intent(v.getContext(), EditDActivity.class);
                             i.putExtra("deck",d);
                             v.getContext().startActivity(i);
+                            }
                             return true;
                         case R.id.deck_menu_del:
-                            helper.RemoveDeck(d);
-                            decks.remove(d);
-                            notifyItemRemoved(position);
+                            if (position != RecyclerView.NO_POSITION) {
+                                helper.RemoveDeck(d);
+                                decks.remove(d);
+                                notifyItemRemoved(position);
+                            }
                             return true;
                         default:
                             return false;
